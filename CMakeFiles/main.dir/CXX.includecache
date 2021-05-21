@@ -1,0 +1,74 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/nadia/Документы/study/3 курс/6 сем/Компьютерная графика/3 задание 2/src/main.cpp
+stb_image.h
+/media/nadia/Документы/study/3 курс/6 сем/Компьютерная графика/3 задание 2/src/stb_image.h
+glm/glm.hpp
+-
+GL/glew.h
+-
+SDL2/SDL.h
+-
+iostream
+-
+renderer.h
+/media/nadia/Документы/study/3 курс/6 сем/Компьютерная графика/3 задание 2/src/renderer.h
+
+/media/nadia/Документы/study/3 курс/6 сем/Компьютерная графика/3 задание 2/src/renderer.cpp
+renderer.h
+/media/nadia/Документы/study/3 курс/6 сем/Компьютерная графика/3 задание 2/src/renderer.h
+string
+-
+iostream
+-
+fstream
+-
+sstream
+-
+
+/media/nadia/Документы/study/3 курс/6 сем/Компьютерная графика/3 задание 2/src/renderer.h
+glm/glm.hpp
+-
+GL/glew.h
+-
+SDL2/SDL.h
+-
+
+/media/nadia/Документы/study/3 курс/6 сем/Компьютерная графика/3 задание 2/src/stb_image.h
+stb_image.h
+/media/nadia/Документы/study/3 курс/6 сем/Компьютерная графика/3 задание 2/src/stb_image.h
+stdio.h
+-
+stdlib.h
+-
+stdarg.h
+-
+stddef.h
+-
+stdlib.h
+-
+string.h
+-
+limits.h
+-
+math.h
+-
+stdio.h
+-
+assert.h
+-
+stdint.h
+-
+emmintrin.h
+-
+intrin.h
+-
+arm_neon.h
+-
+
