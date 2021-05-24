@@ -81,13 +81,13 @@ const int number_add = 20;
         {
             //Верхние точки
             vertices[5*(2*i)]   = -0.05f + float(i)*shift;
-            vertices[5*(2*i)+1] =  0.06f;
+            vertices[5*(2*i)+1] =  0.07f;
             vertices[5*(2*i)+2] =  0.0f;
             vertices[5*(2*i)+3] =  0.0f + float(i)*shift*10;
             vertices[5*(2*i)+4] =  0.0f;
             //Нижние точки
             vertices[5*(2*i+1)]   = -0.05f + float(i)*shift;
-            vertices[5*(2*i+1)+1] = -0.06f;
+            vertices[5*(2*i+1)+1] = -0.07f;
             vertices[5*(2*i+1)+2] =  0.0f;
             vertices[5*(2*i+1)+3] =  0.0f + float(i)*shift*10;
             vertices[5*(2*i+1)+4] =  1.0f;
