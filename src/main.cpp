@@ -29,7 +29,7 @@ int main()
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_Window *window = SDL_CreateWindow(
-        "SDL2/OpenGL Demo", 0, 0, 640, 480, SDL_WINDOW_OPENGL);
+        "SDL2/OpenGL Demo", 0, 0, 1920, 1080, SDL_WINDOW_OPENGL);
 
     // Создаём контекст OpenGL, связанный с окном.
     SDL_GLContext glcontext = SDL_GL_CreateContext(window);

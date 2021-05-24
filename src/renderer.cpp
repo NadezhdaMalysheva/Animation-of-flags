@@ -4,6 +4,8 @@
 #include <fstream>
 #include <sstream>
 
+const int number_add = 20;
+
     int add_shader(std::string fileName, GLuint shaderProgram, GLenum shaderType)
     {
         char* src; int32_t size;
@@ -72,6 +74,57 @@
         glDeleteShader(vs_code);
         glDeleteShader(fs_code);
     }
+    void add_point_vertices(GLfloat* vertices, int number_add)
+    {
+        float shift = 0.1/float(number_add+1);
+        for(int i=0; i<=number_add+1; i++)
+        {
+            //Верхние точки
+            vertices[5*(2*i)]   = -0.05f + float(i)*shift;
+            vertices[5*(2*i)+1] =  0.06f;
+            vertices[5*(2*i)+2] =  0.0f;
+            vertices[5*(2*i)+3] =  0.0f + float(i)*shift*10;
+            vertices[5*(2*i)+4] =  0.0f;
+            //Нижние точки
+            vertices[5*(2*i+1)]   = -0.05f + float(i)*shift;
+            vertices[5*(2*i+1)+1] = -0.06f;
+            vertices[5*(2*i+1)+2] =  0.0f;
+            vertices[5*(2*i+1)+3] =  0.0f + float(i)*shift*10;
+            vertices[5*(2*i+1)+4] =  1.0f;
+            std::cout << i << '\n';
+
+        }
+        std::cout << "end for" << '\n';
+        std::cout << sizeof(vertices) << '\n';
+        std::cout << 5*(4+number_add*2) << '\n';
+        for(int i=0; i<5*(4+number_add*2); i++)
+        {
+            std::cout <<  vertices[i] << ','<< '\n';
+        }
+        std::cout << vertices << '\n';
+    }
+
+    void add_point_indices(GLuint* indices, int number_add)
+    {
+        
+        for(int i=0; i<=number_add; i++)
+        {
+            //Первый треугольник
+            indices[3*(2*i)+0] = 2*i+0; //Верхняя левая
+            indices[3*(2*i)+1] = 2*i+1; //Нижняя левая
+            indices[3*(2*i)+2] = 2*i+2; //Верхняя правая
+            //Второй треугольник 
+            indices[3*(2*i+1)+0] = 2*i+1; //Нижняя левая
+            indices[3*(2*i+1)+1] = 2*i+2; //Верхняя правая
+            indices[3*(2*i+1)+2] = 2*i+3; //Нижняя правая
+        }
+        std::cout <<  "indices" << '\n';
+        for(int i=0; i<3*2*(number_add+1); i++)
+        {
+            std::cout <<  indices[i]<< ',' << '\n';
+        }
+        
+    }
     
     void Renderer::Init(SDL_Window *_window, int w, int h)
     {
@@ -79,20 +132,20 @@
         width = w;
         height = h;
 
-
-        GLfloat vertices[] = {
-             0.5f,  0.5f, 0.0f, 1.0f, 0.0f,  // Верхний правый угол
-             0.5f, -0.5f, 0.0f, 1.0f, 1.0f,  // Нижний правый угол
-            -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,  // Нижний левый угол
-            -0.5f,  0.5f, 0.0f, 0.0f, 0.0f   // Верхний левый угол
-        };
-        GLuint indices[] = {
-            0, 1, 3,   // Первый треугольник
-            1, 2, 3    // Второй треугольник
-        };  
-
+        GLfloat vertices[5*(4+number_add*2)];
+        add_point_vertices(vertices, number_add);
         
-
+        GLuint indices[3*2*(number_add+1)];
+        add_point_indices(indices, number_add);
+        
+        std::cout << sizeof(indices)<<' '<< sizeof(indices) << '\n';
+        std::cout <<  "indices" << '\n';
+        for(int i=0; i<3*2*(number_add+1); i++)
+        {
+            std::cout <<  indices[i]<< ',' << '\n';
+        } 
+                                                   
+    
     // 1. Создаем буферы
         glGenBuffers(1, &VAO);
         glGenBuffers(1, &VBO);
@@ -138,7 +191,7 @@
         //glBindVertexArray(VAO);
         glBindTexture(GL_TEXTURE_2D, texture);
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 3*2*(number_add + 1), GL_UNSIGNED_INT, 0);//3*2*(number_add+1)
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
