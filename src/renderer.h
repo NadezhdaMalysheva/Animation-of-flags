@@ -11,6 +11,7 @@ public:
     void Render(unsigned char * Texture, int wTexture, int hTexture, float);
     void Close();
 private:
+    GLfloat translations[200];
     GLuint VAO, VBO, EBO;
     GLuint shaderProgram;
     SDL_Window *window;

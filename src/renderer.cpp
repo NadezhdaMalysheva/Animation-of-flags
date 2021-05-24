@@ -81,27 +81,19 @@ const int number_add = 20;
         {
             //Верхние точки
             vertices[5*(2*i)]   = -0.05f + float(i)*shift;
-            vertices[5*(2*i)+1] =  0.07f;
+            vertices[5*(2*i)+1] =  0.06f;
             vertices[5*(2*i)+2] =  0.0f;
             vertices[5*(2*i)+3] =  0.0f + float(i)*shift*10;
             vertices[5*(2*i)+4] =  0.0f;
             //Нижние точки
             vertices[5*(2*i+1)]   = -0.05f + float(i)*shift;
-            vertices[5*(2*i+1)+1] = -0.07f;
+            vertices[5*(2*i+1)+1] = -0.06f;
             vertices[5*(2*i+1)+2] =  0.0f;
             vertices[5*(2*i+1)+3] =  0.0f + float(i)*shift*10;
             vertices[5*(2*i+1)+4] =  1.0f;
-            std::cout << i << '\n';
 
         }
-        std::cout << "end for" << '\n';
-        std::cout << sizeof(vertices) << '\n';
-        std::cout << 5*(4+number_add*2) << '\n';
-        for(int i=0; i<5*(4+number_add*2); i++)
-        {
-            std::cout <<  vertices[i] << ','<< '\n';
-        }
-        std::cout << vertices << '\n';
+
     }
 
     void add_point_indices(GLuint* indices, int number_add)
@@ -118,11 +110,6 @@ const int number_add = 20;
             indices[3*(2*i+1)+1] = 2*i+2; //Верхняя правая
             indices[3*(2*i+1)+2] = 2*i+3; //Нижняя правая
         }
-        std::cout <<  "indices" << '\n';
-        for(int i=0; i<3*2*(number_add+1); i++)
-        {
-            std::cout <<  indices[i]<< ',' << '\n';
-        }
         
     }
     
@@ -137,13 +124,18 @@ const int number_add = 20;
         
         GLuint indices[3*2*(number_add+1)];
         add_point_indices(indices, number_add);
-        
-        std::cout << sizeof(indices)<<' '<< sizeof(indices) << '\n';
-        std::cout <<  "indices" << '\n';
-        for(int i=0; i<3*2*(number_add+1); i++)
+         
+
+        int index = 0;
+        float offset = 0.1f;
+        for(int y = -10; y < 10; y += 2)
         {
-            std::cout <<  indices[i]<< ',' << '\n';
-        } 
+            for(int x = -10; x < 10; x += 2)
+            {
+                translations[index++] = (float)x / 10.0f + offset;
+                translations[index++] = (float)y / 10.0f + offset;
+            }
+        }
                                                    
     
     // 1. Создаем буферы
@@ -188,10 +180,11 @@ const int number_add = 20;
         
         glUseProgram(shaderProgram);
         glUniform1f(glGetUniformLocation(shaderProgram, "GlobalTime"), time);
+        glUniform1fv(glGetUniformLocation(shaderProgram, "Offsets"), 200, translations);
         //glBindVertexArray(VAO);
         glBindTexture(GL_TEXTURE_2D, texture);
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 3*2*(number_add + 1), GL_UNSIGNED_INT, 0);//3*2*(number_add+1)
+        glDrawElementsInstanced(GL_TRIANGLES, 3*2*(number_add + 1), GL_UNSIGNED_INT,0, 100);//3*2*(number_add+1)
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
