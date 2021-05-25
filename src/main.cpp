@@ -37,12 +37,13 @@ int main()
     int width, height;
     SDL_GetWindowSize(window, &width, &height);
     glViewport(0, 0, width, height);
+    glEnable(GL_DEPTH_TEST);
     Renderer renderer;
     renderer.Init(window,width,height);
     SDL_Event event;
     float time = 0;
     int widthT, heightT, nrChannelsT;
-    unsigned char *data = stbi_load("container.jpg", &widthT, &heightT, &nrChannelsT, 0);
+    unsigned char *data = stbi_load("container.png", &widthT, &heightT, &nrChannelsT, 0);
     if (data)
     {
         while (running)
@@ -59,8 +60,8 @@ int main()
                 }
             }
             // Заливка кадра чёрным цветом средствами OpenGL
-            glClearColor(1,0,0,1);
-            glClear(GL_COLOR_BUFFER_BIT);
+            glClearColor(0.3,0.3,0.3,1);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             // Обновление и рисование сцены
             renderer.Render(data, widthT, heightT, time++);
             // В конце - вывод нарисованного кадра в окно на экране

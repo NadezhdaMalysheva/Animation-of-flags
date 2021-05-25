@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 
-const int number_add = 20;
+const int number_add = 15;
 
     int add_shader(std::string fileName, GLuint shaderProgram, GLenum shaderType)
     {
@@ -93,6 +93,65 @@ const int number_add = 20;
             vertices[5*(2*i+1)+4] =  1.0f;
 
         }
+        // Добавляем флагшток
+        
+        //Слева
+        //Верхние точки
+        vertices[5*(4+number_add*2)]   = -0.055f;
+        vertices[5*(4+number_add*2)+1] =  0.06f;
+        vertices[5*(4+number_add*2)+2] =  0.0f;
+        vertices[5*(4+number_add*2)+3] =  2.0f;
+        vertices[5*(4+number_add*2)+4] =  2.0f;
+        //Нижние точки
+        vertices[5*(4+number_add*2+1)]   = -0.055f;
+        vertices[5*(4+number_add*2+1)+1] = -0.12f;
+        vertices[5*(4+number_add*2+1)+2] =  0.0f;
+        vertices[5*(4+number_add*2+1)+3] =  2.0f;
+        vertices[5*(4+number_add*2+1)+4] =  2.0f;
+        
+        //Справа
+        //Верхние точки
+        vertices[5*(4+number_add*2+2)]   = -0.05f;
+        vertices[5*(4+number_add*2+2)+1] =  0.06f;
+        vertices[5*(4+number_add*2+2)+2] =  0.0f;
+        vertices[5*(4+number_add*2+2)+3] =  2.0f;
+        vertices[5*(4+number_add*2+2)+4] =  2.0f;
+        //Нижние точки
+        vertices[5*(4+number_add*2+3)]   = -0.05f;
+        vertices[5*(4+number_add*2+3)+1] = -0.12f;
+        vertices[5*(4+number_add*2+3)+2] =  0.0f;
+        vertices[5*(4+number_add*2+3)+3] =  2.0f;
+        vertices[5*(4+number_add*2+3)+4] =  2.0f;
+
+        // Добавляем плоскость
+        
+        //Слева
+        //Верхние точки
+        vertices[5*(8+number_add*2)]   = -0.1f;
+        vertices[5*(8+number_add*2)+1] = -0.12f;
+        vertices[5*(8+number_add*2)+2] = -0.5f;
+        vertices[5*(8+number_add*2)+3] =  3.0f;
+        vertices[5*(8+number_add*2)+4] =  3.0f;
+        //Нижние точки
+        vertices[5*(8+number_add*2+1)]   = -0.1f;
+        vertices[5*(8+number_add*2+1)+1] = -0.12f;
+        vertices[5*(8+number_add*2+1)+2] =  0.5f;
+        vertices[5*(8+number_add*2+1)+3] =  3.0f;
+        vertices[5*(8+number_add*2+1)+4] =  3.0f;
+        
+        //Справа
+        //Верхние точки
+        vertices[5*(8+number_add*2+2)]   =  0.1f;
+        vertices[5*(8+number_add*2+2)+1] = -0.12f;
+        vertices[5*(8+number_add*2+2)+2] = -0.5f;
+        vertices[5*(8+number_add*2+2)+3] =  3.0f;
+        vertices[5*(8+number_add*2+2)+4] =  3.0f;
+        //Нижние точки
+        vertices[5*(8+number_add*2+3)]   =  0.1f;
+        vertices[5*(8+number_add*2+3)+1] = -0.12f;
+        vertices[5*(8+number_add*2+3)+2] =  0.5f;
+        vertices[5*(8+number_add*2+3)+3] =  3.0f;
+        vertices[5*(8+number_add*2+3)+4] =  3.0f;
 
     }
 
@@ -110,6 +169,27 @@ const int number_add = 20;
             indices[3*(2*i+1)+1] = 2*i+2; //Верхняя правая
             indices[3*(2*i+1)+2] = 2*i+3; //Нижняя правая
         }
+        // Флагшток
+
+        //Первый треугольник
+        indices[3*2*(number_add+1)+0] = (4+number_add*2)+0; //Верхняя левая
+        indices[3*2*(number_add+1)+1] = (4+number_add*2)+1; //Нижняя левая
+        indices[3*2*(number_add+1)+2] = (4+number_add*2)+2; //Верхняя правая
+        //Второй треугольник 
+        indices[3*2*(number_add+1)+3] = (4+number_add*2)+1; //Нижняя левая
+        indices[3*2*(number_add+1)+4] = (4+number_add*2)+2; //Верхняя правая
+        indices[3*2*(number_add+1)+5] = (4+number_add*2)+3; //Нижняя правая
+
+        // Плоскость
+
+        //Первый треугольник
+        indices[3*2*(number_add+2)+0] = (8+number_add*2)+0; //Верхняя левая
+        indices[3*2*(number_add+2)+1] = (8+number_add*2)+1; //Нижняя левая
+        indices[3*2*(number_add+2)+2] = (8+number_add*2)+2; //Верхняя правая
+        //Второй треугольник 
+        indices[3*2*(number_add+2)+3] = (8+number_add*2)+1; //Нижняя левая
+        indices[3*2*(number_add+2)+4] = (8+number_add*2)+2; //Верхняя правая
+        indices[3*2*(number_add+2)+5] = (8+number_add*2)+3; //Нижняя правая
         
     }
     
@@ -119,11 +199,13 @@ const int number_add = 20;
         width = w;
         height = h;
 
-        GLfloat vertices[5*(4+number_add*2)];
+        GLfloat vertices[5*(4+number_add*2) + 5*8];
         add_point_vertices(vertices, number_add);
+               
         
-        GLuint indices[3*2*(number_add+1)];
+        GLuint indices[3*2*(number_add+1) + 3*4];
         add_point_indices(indices, number_add);
+        
          
 
         int index = 0;
@@ -133,7 +215,7 @@ const int number_add = 20;
             for(int x = -10; x < 10; x += 2)
             {
                 translations[index++] = (float)x / 10.0f + offset;
-                translations[index++] = (float)y / 10.0f + offset;
+                translations[index++] = (float(y) + 0.5) / 11.0f + offset;
             }
         }
                                                    
@@ -159,6 +241,16 @@ const int number_add = 20;
     glBindVertexArray(0);
 
     add_shader_program(shaderProgram,"shaders/simple.vert","shaders/simple.frag");
+
+    // Создаем матрицы преобразований 
+
+    model = glm::mat4(1.0f);
+    view = glm::mat4(1.0f);
+    projection = glm::mat4(1.0f);
+    model = glm::rotate(model, glm::radians(45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    view = glm::translate(view, glm::vec3(0.0f, 0.3f, -2.0f));
+    projection = glm::perspective(glm::radians(45.0f), float(width) / float(height), 0.1f, 100.0f);
+    
     }
     void Renderer::Render(unsigned char *data, int width, int height, float time=0)
     {
@@ -179,12 +271,17 @@ const int number_add = 20;
         glGenerateMipmap(GL_TEXTURE_2D);
         
         glUseProgram(shaderProgram);
+
         glUniform1f(glGetUniformLocation(shaderProgram, "GlobalTime"), time);
         glUniform1fv(glGetUniformLocation(shaderProgram, "Offsets"), 200, translations);
+
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         //glBindVertexArray(VAO);
         glBindTexture(GL_TEXTURE_2D, texture);
         glBindVertexArray(VAO);
-        glDrawElementsInstanced(GL_TRIANGLES, 3*2*(number_add + 1), GL_UNSIGNED_INT,0, 100);//3*2*(number_add+1)
+        glDrawElementsInstanced(GL_TRIANGLES, 3*2*(number_add + 3), GL_UNSIGNED_INT,0, 100);//3*2*(number_add+1)
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 
@@ -12,6 +14,7 @@ public:
     void Close();
 private:
     GLfloat translations[200];
+    glm::mat4 model, view, projection;
     GLuint VAO, VBO, EBO;
     GLuint shaderProgram;
     SDL_Window *window;
